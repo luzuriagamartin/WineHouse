@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link rel="stylesheet" href="/css/categorias.css">
+        </head>
+<body>
+    
+    <%- include('../partials/header.ejs') %>
+    <!--Menu vinos FIN-->
+<main class="container-fluid  py-5" id="main">
+    <article class="col-12">
+        <h1 class="font-weight-bolder w-100 text-center my-5" id="titulo"><%= titulo.name %> </h1>
+    </article>
+    <!--Formulario Filtro-->
+    <form class="formulario_filtro" method="POST" action="/categoria/filtrar">
+        <div class="form-row">
+            <div class="form-group col-md-3 col-6">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" name="name" placeholder="Filtrar por Nombre">
+            </div>
+            <div class="form-group col-md-3 col-6">
+                <label for="category">Categoría</label>
+                <select class="form-control" name="category">
+                    <option value=<%= titulo.id %> selected><%= titulo.name %></option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-6">
+                <label for="varietal">Varietal</label>
+                <select class="form-control" name="varietal">
+                    <% let todosLosVarietales = [];
+                        for (var varietal of varietales){
+                            todosLosVarietales.push(varietal.id);
+                        }
+                    %>
+                    <option value=<%= todosLosVarietales %> selected>Todos</option>
+                    <% varietales.forEach(varietal=>{ %> 
+                    <option value=<%=varietal.id%> ><%=varietal.name%></option>
+                    <%})%>    
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-6">
+                <label for="producer">Productor</label>
+                <select class="form-control" name="producer">
+                    <% let todosLosProductores = [];
+                        for (var productor of productores){
+                            todosLosProductores.push(productor.id);
+                        }
+                    %>
+                    <option value=<%= todosLosProductores %> selected>Todos</option>
+                    <% productores.forEach(productor=>{ %> 
+                    <option value=<%=productor.id%> ><%=productor.name%></option>
+                    <%})%>    
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3 col-6">
+                <label for="min">Precio Mínimo</label>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                    <input class="form-control" type="number" value="0" name="min">
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-6">
+                <label for="max">Precio Máximo</label>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                    <input class="form-control" type="number" value="999999" name="max">
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-6">
+                <label for="order">Ordenar por</label>
+                <select class="form-control" name="order">
+                    <option value="price">Precio</option>
+                    <option value="name">Nombre</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-6">
+                <label for="order">En orden</label>
+                <select class="form-control" name="order">
+                    <option value="ASC">Ascendente</option>
+                    <option value="DESC">Descendente</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 col-6">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="recomendados" name="selection">
+                    <label class="custom-control-label" for="recomendados">Recomendados</label>
+                </div>
+            </div>
+            <div class="form-group col-md-4 col-6">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="ofertas" name="sale">
+                    <label class="custom-control-label" for="ofertas">Ofertas</label>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary" id="filtrar">FILTRAR</button>
+            </div>
+        </div>
+    </form>
+    <!--Formulario Filtro FIN-->
+    <section class="d-flex" id="vinos">
+        <% vinos.forEach(vino => { %>
+    <article class="col-12 col-md-6 col-lg-3">
+        <div id="articulo"> 
+            <img class="imagen" src="/images/productos/<%= vino.imageSm %>" alt="producto">
+            <% if (vino.sale == 'on') {%>
+                <img id="oferta" src="/img/oferta.png" alt="oferta">
+            <% } %>                
+            <h6><%= vino.name %></h6>
+            <h6><%= vino.producer.name %></h6>
+            <h4>$<%= vino.price %></h4>
+            <h6>3 cuotas de $<%= Math.round(vino.price/3) %></h6>
+            <a href="/cart" class="btn btn-primary" id="comprar">Comprar</a>
+            <a href="/producto/detalle/<%= vino.id %>" class="btn btn-primary" id="verMas">Ver Más</a>
+        </div>
+    </article>
+    <% }) %>
+</section>
+</main>
+    <!--Menu Vinos FIN-->
+    <!--Footer-->
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

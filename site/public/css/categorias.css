@@ -1,0 +1,74 @@
+#main{
+    position: relative;
+    margin: 15px 0px;
+}
+#titulo{
+    text-align: center;
+    text-decoration: underline;
+    color: #fffffd;
+    background-color: #401233;
+    font-size: 2rem;
+    border-radius: 20px;
+}
+#vinos{
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+#oferta{
+    right: 30px;
+    top: 20px;
+    position: absolute;
+    width: 25%;
+}
+
+section article div#articulo{
+    text-align: center;
+    border: 1px solid #401233;
+    border-radius: 15px;
+    margin: 5px 0px;
+    padding-bottom: 5px;
+    
+}
+
+/*Clases para formulario de filtros*/
+
+.formulario_filtro{
+    
+    border-bottom: #b3b5af solid 1px;
+}
+
+.form-control {
+    background-color: #fffffd;
+    border-color: #b3b5af;
+}
+
+.input-group-text {
+    border-color: #b3b5af;
+}
+
+label {
+    color: #8a0804;
+    font-weight: 500;
+}
+
+.btn-primary#filtrar{
+    color: #fffffd;
+    background-color: #8a0804;
+    border-color: #8a0804;
+}
+
+.btn-primary#reset{
+    color: #050705;
+    background-color: #b3b5af;
+    border-color: #b3b5af;
+}
+
+.btn{
+    border-radius: 1rem;
+    padding: .375rem 1.5rem;
+    margin: 0px 5px;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+    background-color: #8a0804;
+}

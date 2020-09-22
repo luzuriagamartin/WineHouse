@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link rel="stylesheet" href="/css/detalle_producto.css">
+        <link rel="stylesheet" href="/css/stars.css">
+    </head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    
+    <!--Detalle de Producto-->
+    
+    <main class="container-fluid" id="principal">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <figure>
+                    <img src="/images/productos/<%= producto.imageLg %>" alt="Vino">
+                </figure>
+                <h6 id="titulo_valor">Precio por Unidad <span id="precio">$<%= producto.price %></span></h6>               
+                <h6 id="titulo_valor">Disponibilidad: <% if (producto.stock > 0) { %>
+                    <span style="color: green">En Stock</span>
+                <% } else {%>
+                    <span style="color: red">Sin Stock</span>
+                <% } %>  
+                </h6>
+                <h6 id="titulo_valor">Contenido:<%= producto.volume %>ml</h6>
+                <form id="comprar" action="" method="POST">
+                    <label for="cantidad">Cantidad:</label>
+                    <input id="cantidad" type="text" name="cantidad" value="1">
+                    <br>
+                    <button type="submit" class="btn btn-primary" id="comprar">AGREGAR AL CARRITO</button>
+                </form>
+            </div>
+            <div class="col-12 col-md-8 info">
+                <h1><%= producto.name %></h1>
+                <h4><%= producto.varietal.name %></h6>
+                    <p class="descripcion"><%= producto.description %></p>
+                    
+                    
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        FICHA TÉCNICA >>
+                                    </button>
+                                </h2>
+                            </div>
+                            
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <table class="table table-sm table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (producto.producer) { %>
+                                            <tr>
+                                                <th scope="row">BODEGA</th>
+                                                <td><%= producto.producer.name %></td>
+                                            </tr>
+                                            <% } %>
+                                            <% if (producto.region) { %> 
+                                            <tr>
+                                                <th scope="row">PROCEDENCIA</th>
+                                                <td><%= producto.region %></td>
+                                            </tr>
+                                            <% } %>
+                                            <tr>
+                                                <th scope="row">CATEGORÍA</th>
+                                                <td><%= producto.category.name %></td>
+                                            </tr>
+                                            <% if (producto.varietal) { %>
+                                            <tr>
+                                                <th scope="row">VARIETAL</th>
+                                                <td><%= producto.varietal.name %></td>
+                                            </tr>
+                                            <% } %>
+                                            <% if (producto.blend) { %>
+                                            <tr>
+                                                <th scope="row">CORTE</th>
+                                                <td><%= producto.blend %></td>
+                                            </tr>
+                                            <% } %>
+                                            <% if (producto.vintage) { %>
+                                            <tr>
+                                                <th scope="row">COSECHA</th>
+                                                <td><%= producto.vintage %></td>
+                                            </tr>
+                                            <% } %>
+                                            <% if (producto.alcohol) { %>
+                                            <tr>
+                                                <th scope="row">ALCOHOL</th>
+                                                <td><%= producto.alcohol %></td>
+                                            </tr>
+                                            <% } %> 
+                                            <% if (producto.elaboration) { %> 
+                                            <tr>
+                                                <th scope="row">ELABORACIÓN</th>
+                                                <td><%= producto.elaboration %></td>
+                                            </tr>
+                                            <% } %>
+                                            <% if (producto.aging) { %>  
+                                            <tr>
+                                                <th scope="row">CRIANZA</th>
+                                                <td><%= producto.aging %></td>
+                                            </tr>
+                                            <% } %> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        DATOS DEL ENVÍO >>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    Envío gratis para compras mayores a $2000. <br>
+                                    Entrega en 3 a 7 días hábiles.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        CALIFICACIONES >>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="review">
+                                        <h4> Puntaje Promedio: <span class="Stars" style="--rating: 3.5;" aria-label="Rating of this product is 3.5 out of 5.">3.5 de 5</span></h4>
+                                        <article>
+                                            <div>
+                                                <h6><b> Eze </b><span class="Stars" style="--rating: 3.0;" aria-label="Rating of this product is 3.0 out of 5."></span></h6>
+                                                <p>28/06/2020</p>
+                                            </div>
+                                            <p>Muy rico vino!</p>
+                                        </article>
+                                        <article>
+                                            <div>
+                                                <h6><b> Lea </b><span class="Stars" style="--rating: 4.0;" aria-label="Rating of this product is 4.0 out of 5."></span></h6>
+                                                <p>09/07/2020</p>
+                                            </div>
+                                            <p>Excelente vino para tomar en una ocasión especial</p>
+                                        </article>
+                                        <article>
+                                            <div>
+                                                <h6><b> mmmmmm </b><span class="Stars" style="--rating: 3.0;" aria-label="Rating of this product is 3.0 out of 5."></span></h6>
+                                                <p>10/07/2020</p>
+                                            </div>
+                                            <p>Lo probé anoche y me gustó. Con un final un poco picante para mi.</p>
+                                        </article>
+                                        <article>
+                                            <div>
+                                                <h6><b> Pepe </b><span class="Stars" style="--rating: 4.0;" aria-label="Rating of this product is 4.0 out of 5."></span></h6>
+                                                <p>31/08/2020</p>
+                                            </div>
+                                            <p>Me encantó. No le pongo cinco estrellas por el precio.</p>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="tab-pane row">
+                <h2 class="col-12" id="titulo">TAMBIÉN PODRÍAN INTERESARTE</h2>
+                <% productos.forEach(vinos => { %>
+                <article class="col-12 col-md-6 col-lg-3">
+                    <div>
+                        <img src="/images/productos/<%= vinos.imageSm %>" alt="producto">
+                        <h6><%= vinos.name %></h6>
+                        <h6><%= vinos.producer.name %></h6>
+                        <h4>$<%= vinos.price %></h4>
+                        <h6>3 cuotas de $<%= Math.round(vinos.price/3) %></h6>
+                        <a href="/cart" class="btn btn-primary" id="comprar">Comprar</a>
+                        <a href="/producto/detalle/<%= vinos.id %>" class="btn btn-primary" id="verMas">Ver
+                            Más</a>
+                    </div>
+                </article>
+                <% }); %>
+            </section>
+        </main>
+        
+        <!--Fin Detalle de Producto-->
+        
+        <%- include('../partials/footer.ejs') %>
+</body>
+</html>
